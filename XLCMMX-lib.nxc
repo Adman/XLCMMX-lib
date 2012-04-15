@@ -1,0 +1,31 @@
+#include "NXTMMX-lib.nxc"
+#define M1 0x01
+#define M2 0x02
+#define M12 0x03
+
+byte SensorPort;
+#define Addr 0x06
+
+int MInit(byte port)
+{
+ SensorPort = port;
+ MMX_Init( SensorPort, Addr, 0 );
+ return 0;
+}
+
+int MOnFwd(byte port, byte speed)
+{
+ MMX_Run_Unlimited(SensorPort, Addr, port, MMX_Direction_Forward, speed);
+ return 0;
+}
+
+int MOnRev(byte port, byte speed)
+{
+ MMX_Run_Unlimited(SensorPort, Addr, port, MMX_Direction_Reverse, speed);
+ return 0;
+}
+
+int MOff(byte port)
+{
+ 	MMX_Stop(SensorPort, Addr, port, MMX_Next_Action_Brake);
+}
